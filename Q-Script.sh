@@ -2,7 +2,7 @@
 ### OPTIONS AND VARIABLES ###
 
 dotfilesrepo="https://github.com/QWinOS/QKleanDot.git"
-progsfile="https://raw.githubusercontent.com/QWinOS/Q-Script/master/packages.csv"
+progsfile="https://raw.githubusercontent.com/QWinOS/QKleanDot/master/packages.csv"
 aurhelper="paru"
 repobranch="master"
 
@@ -50,7 +50,7 @@ preinstallmsg() {
 adduserandpass() {
 	# Adds user `$name` with password $pass1.
 	dialog --infobox "Adding user \"$name\"..." 4 50
-	useradd -m -g wheel -s /bin/zsh "$name" >/dev/null 2>&1 ||
+	useradd -m -g wheel -s /bin/fish "$name" >/dev/null 2>&1 ||
 		usermod -a -G wheel "$name" && mkdir -p /home/"$name" && chown "$name":wheel /home/"$name"
 	export repodir="/home/$name/.local/src"
 	mkdir -p "$repodir"
@@ -206,7 +206,7 @@ preinstallmsg || error "User exited."
 # Refresh Arch keyrings.
 refreshkeys || error "Error automatically refreshing Arch keyring. Consider doing so manually."
 
-for x in curl ca-certificates base-devel git ntp zsh; do
+for x in curl ca-certificates base-devel git ntp fish; do
 	dialog --title "Q-Script Installation" --infobox "Installing \`$x\` which is required to install and configure other programs." 5 70
 	installpkg "$x"
 done
@@ -251,9 +251,9 @@ git update-index --assume-unchanged "/home/$name/README.md" "/home/$name/LICENSE
 # Most important command! Get rid of the beep!
 systembeepoff
 
-# Make zsh the default shell for the user.
-chsh -s /bin/zsh "$name" >/dev/null 2>&1
-sudo -u "$name" mkdir -p "/home/$name/.cache/zsh/"
+# Make fish the default shell for the user.
+chsh -s /bin/fish "$name" >/dev/null 2>&1
+sudo -u "$name" mkdir -p "/home/$name/.cache/fish/"
 
 # dbus UUID must be generated for Artix runit.
 # dbus-uuidgen >/var/lib/dbus/machine-id
@@ -283,6 +283,9 @@ sudo -u "$name" pulseaudio --start
 # serveral important commands, `shutdown`, `reboot`, updating, etc. without a password.
 newperms "%wheel ALL=(ALL) ALL #QWinOS
 %wheel ALL=(ALL) NOPASSWD: /usr/bin/shutdown,/usr/bin/reboot,/usr/bin/systemctl suspend,/usr/bin/wifi-menu,/usr/bin/mount,/usr/bin/umount,/usr/bin/pacman -Syu,/usr/bin/pacman -Syyu,/usr/bin/packer -Syu,/usr/bin/packer -Syyu,/usr/bin/systemctl restart NetworkManager,/usr/bin/rc-service NetworkManager restart,/usr/bin/pacman -Syyu --noconfirm,/usr/bin/loadkeys,/usr/bin/paru,/usr/bin/pacman -Syyuw --noconfirm"
+
+curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
+
 failinstallationloop
 # Last message! Install complete!
 finalize

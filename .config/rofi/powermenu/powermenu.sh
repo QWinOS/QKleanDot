@@ -19,9 +19,9 @@ uptime=$(uptime -p | sed -e 's/up //g')
 rofi_command="rofi -theme $dir/$theme"
 
 # Options
-shutdown=" ⏻ "
-reboot=" 勒 "
 lock="  "
+reboot=" 勒 "
+shutdown=" ⏻ "
 suspend=" 鈴 "
 logout="  "
 
@@ -36,9 +36,9 @@ msg() {
 }
 
 # Variable passed to rofi
-options="$shutdown\n$reboot\n$lock\n$suspend\n$logout"
+options="$reboot\n$shutdown\n$suspend\n$logout"
 
-chosen="$(echo -e "$options" | $rofi_command -p "Uptime: $uptime" -dmenu -selected-row 2)"
+chosen="$(echo -e "$options" | $rofi_command -dmenu -p "Uptime: $uptime ")"
 case $chosen in
     $shutdown)
 		ans=$(confirm_exit &)
@@ -82,15 +82,16 @@ case $chosen in
     $logout)
 		ans=$(confirm_exit &)
 		if [[ $ans == "yes" || $ans == "YES" || $ans == "y" || $ans == "Y" ]]; then
-			if [[ "$DESKTOP_SESSION" == "Openbox" ]]; then
-				openbox --exit
-			elif [[ "$DESKTOP_SESSION" == "bspwm" ]]; then
-				bspc quit
-			elif [[ "$DESKTOP_SESSION" == "i3" ]]; then
-				i3-msg exit
+			# if [[ "$DESKTOP_SESSION" == "Openbox" ]]; then
+			# 	openbox --exit
+			# elif [[ "$DESKTOP_SESSION" == "bspwm" ]]; then
+			# 	bspc quit
+			# elif [[ "$DESKTOP_SESSION" == "i3" ]]; then
+			# 	i3-msg exit
 			# elif [[ "$DESKTOP_SESSION" == "qtile" ]]; then
 			# 	mod4
-			fi
+			# fi
+			killall xinit
 		elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
 			exit 0
         else

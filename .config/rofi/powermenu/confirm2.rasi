@@ -1,5 +1,5 @@
 configuration {
-	font:							"FantasqueSansMono Nerd Font 14";
+	font:							"FantasqueSansMono Nerd Font 15";
     show-icons:                     false;
 	icon-theme: 					"Papirus";
     drun-display-format:            "{name}";
@@ -14,7 +14,7 @@ window {
     background-color:               @background;
     text-color:                     @foreground;
     border-radius:                  0px;
-	width:							225px;
+	width:							100%;
 	height:							100%;
 }
 
@@ -22,7 +22,7 @@ mainbox {
     background-color:               @background;
     children:                       [ inputbar, listview ];
     spacing:                        5%;
-    padding:                        32.50% 0% 0% 13.25%;
+    padding:                        32.50% 30% 0% 30%;
 }
 
 inputbar {
@@ -72,7 +72,7 @@ element {
 element-text {
     background-color: 				#00000000;
     text-color:       				inherit;
-	font:							"feather 64";
+	font:							"feather 15";
     expand:                         true;
     horizontal-align:               0.5;
     vertical-align:                 0.5;

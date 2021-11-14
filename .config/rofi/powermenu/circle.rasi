@@ -56,7 +56,7 @@ prompt {
 listview {
     background-color:               @background;
     margin:                         0% 0% 0% 0%;
-    spacing:                        3%;
+    spacing:                        8%;
     cycle:                          true;
     dynamic:                        true;
     layout:                         horizontal;

@@ -19,24 +19,24 @@ uptime=$(uptime -p | sed -e 's/up //g')
 rofi_command="rofi -theme $dir/$theme"
 
 # Options
+yess="Yes"
+noo="No"
 shutdown=" ⏻ "
 reboot=" 勒 "
 lock="  "
 suspend=" 鈴 "
 logout="  "
-yes = "YES"
-n = "NO"
 
+choice="$yess\n$noo"
 # Confirmation
 confirm_exit() {
-	options = "$y\n$n"
 	# rofi -dmenu -i -no-fixed-num-lines 
-	chosen = "$(echo -e "$options" | rofi -dmenu -selected-row 2 -p "Are You Sure? : " -theme $dir/confirm2.rasi)"
-	case $chosen in
-		$yes)
-			return 1;;
-		$no)
-			return 0;;
+	choosed="$(echo -e "$choice" | rofi -theme $dir/confirm2.rasi -dmenu -selected-row 0 -p "Are You Sure? : " )"
+	case $choosed in
+		$yess)
+			echo "YES";;
+		$noo)
+			echo "NO";;
 	esac
 }
 
@@ -71,11 +71,18 @@ case $chosen in
         fi
         ;;
     $lock)
-		if [[ -f /usr/bin/i3lock ]]; then
-			i3lock
-		elif [[ -f /usr/bin/betterlockscreen ]]; then
-			betterlockscreen -l
-		fi
+		ans=$(confirm_exit &)
+		if [[ $ans == "yes" || $ans == "YES" || $ans == "y" || $ans == "Y" ]]; then
+			if [[ -f /usr/bin/i3lock ]]; then
+				i3lock
+			elif [[ -f /usr/bin/betterlockscreen ]]; then
+				betterlockscreen -l
+			fi
+		elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
+			exit 0
+        else
+			msg
+        fi
         ;;
     $suspend)
 		ans=$(confirm_exit &)

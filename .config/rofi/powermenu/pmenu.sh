@@ -2,7 +2,6 @@
 
 theme="circle"
 dir="$HOME/.config/rofi/powermenu"
-
 # random colors
 styles=($(ls -p --hide="colors.rasi" $dir/styles))
 color="${styles[$(( $RANDOM % 8 ))]}"
@@ -31,7 +30,7 @@ choice="$yess\n$noo"
 # Confirmation
 confirm_exit() {
 	# rofi -dmenu -i -no-fixed-num-lines 
-	choosed="$(echo -e "$choice" | rofi -theme $dir/confirm2.rasi -dmenu -selected-row 0 -p "Are You Sure? : " )"
+	choosed="$(echo -e "$choice" | rofi -theme /home/hackmeqtile/Desktop/QKleanDot/.config/rofi/powermenu/confirm2.rasi -dmenu -selected-row 0 -p "Are You Sure? " )"
 	case $choosed in
 		$yess)
 			echo "YES";;
@@ -56,8 +55,8 @@ case $chosen in
 			systemctl poweroff
 		elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
 			exit 0
-        else
-			msg
+        # else
+		# 	msg
         fi
         ;;
     $reboot)
@@ -66,8 +65,8 @@ case $chosen in
 			systemctl reboot
 		elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
 			exit 0
-        else
-			msg
+        # else
+		# 	msg
         fi
         ;;
     $lock)
@@ -80,8 +79,8 @@ case $chosen in
 			fi
 		elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
 			exit 0
-        else
-			msg
+        # else
+		# 	msg
         fi
         ;;
     $suspend)
@@ -92,8 +91,8 @@ case $chosen in
 			systemctl suspend
 		elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
 			exit 0
-        else
-			msg
+        # else
+		# 	msg
         fi
         ;;
     $logout)
@@ -110,8 +109,8 @@ case $chosen in
 			fi
 		elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
 			exit 0
-        else
-			msg
+        # else
+		# 	msg
         fi
         ;;
 esac

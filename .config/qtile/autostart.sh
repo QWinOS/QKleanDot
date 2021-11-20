@@ -31,4 +31,7 @@ redshift &
 unclutter --start-hidden &
 
 # refresh pacman database
-echo -e '1998' | sudo -S pacman --noconfirm -Sy &
+# echo -e 'YOUR_PASSWORD_HERE' | sudo -S pacman --noconfirm -Sy &
+
+# Battery icon
+# cbatticon -n -c "notify-send -u critical \"Low Battery\"" &

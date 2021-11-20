@@ -53,7 +53,7 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
 
     # Power Menu
     # (["mod1"], "Tab", lazy.spawn(path.join(rofi_path, 'text/launcher.sh'))),
-    (["mod1"], "p", lazy.spawn(path.join(rofi_path, 'powermenu/powermenu.sh'))),
+    ([mod], "p", lazy.spawn(path.join(rofi_path, 'powermenu/powermenu.sh'))),
 
     # Browser
     ([mod], "b", lazy.spawn("firefox")),

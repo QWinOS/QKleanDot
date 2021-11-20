@@ -3,9 +3,6 @@ export ZDOTDIR=$HOME/.config/zsh
 # If tty1 startx
 [ "$(tty)" = "/dev/tty1" ] && ! pidof -s Xorg >/dev/null 2>&1 && exec startx "$XINITRC"
 
-# If not interactive do not do anything
-if [[ $- != *i* ]] && return
-
 # Command history
 HISTSIZE=100000
 SAVEHIST=100000
@@ -53,25 +50,14 @@ export TERMINAL="alacritty"
 export BROWSER="firefox"
 export PAGER="most"
 export PATH=$PATH:~/.local/bin
+for folder in ~/.local/bin/* do
+  export PATH=$PATH:folder
+done
 
 #Exports
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('$HOME/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "$HOME/miniconda3/etc/profile.d/conda.sh" ]; then
-# . "$HOME/miniconda3/etc/profile.d/conda.sh"  # commented out by conda initialize
-    else
-# export PATH="$HOME/miniconda3/bin:$PATH"  # commented out by conda initialize
-    fi
-fi
-unset __conda_setup
 
 ## Useful Alias
 # track dotfiles version control

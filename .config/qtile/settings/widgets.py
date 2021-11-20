@@ -5,9 +5,9 @@ from settings.theme import colors
 # Get the icons at https://www.nerdfonts.com/cheat-sheet (you need a Nerd Font)
 
 # Enter Your Location Here
-location = 'Asansol'
+location = 'Burnpur'
 
-# Enter User password in line 99
+# Enter User password in line 86 to update on click via top bar
 
 def base(fg='text', bg='dark'):
     return {
@@ -20,14 +20,17 @@ def separator(fg="light", bg="dark", t=" "):
     return widget.TextBox(**base(fg,bg), text=t, fontsize = 5, padding=5)
 
 
-def icon(fg='light', bg='dark', fontsize=16, text="?"):
+def icon(fg='light', bg='dark', fontsize=16, text="?", padding=3):
     return widget.TextBox(
         **base(fg, bg),
         fontsize=fontsize,
         text=text,
-        padding=3
+        padding=padding
     )
 
+def tasklistStringHide(text):
+    text = text.replace(text,"")
+    return text
 
 def powerline(fg="light", bg="dark"):
     return widget.TextBox(
@@ -41,9 +44,8 @@ def workspaces():
     return [
         # separator(),
         widget.GroupBox(
-            **base(fg='light'),
-            font='UbuntuMono Nerd Font',
-            fontsize=22,
+            **base(bg='color4'),
+            fontsize=18,
             margin_y=3,
             margin_x=0,
             padding_y=8,
@@ -51,35 +53,35 @@ def workspaces():
             borderwidth=1,
             active=colors['active'],
             inactive=colors['inactive'],
-            rounded=False,
-            highlight_method='text',
+            rounded=True,
+            highlight_method='block',
             urgent_alert_method='block',
             urgent_border=colors['urgent'],
             this_current_screen_border=colors['focus'],
             this_screen_border=colors['grey'],
             other_current_screen_border=colors['dark'],
             other_screen_border=colors['dark'],
-            disable_drag=True,
+            disable_drag=False,
             hide_unused=True
         ),
-        # widget.WindowName(**base(fg='focus'), fontsize=13, padding=5),
     ]
 
 
 primary_widgets = [
     # Current Layout
     widget.CurrentLayoutIcon(**base(bg='color4'), scale=0.7),
-    widget.CurrentLayout(**base(bg='color4'), padding=5),
+    widget.CurrentLayout(**base(bg='color4',fg='dark'), padding=5),
 
     *workspaces(),
-    
+
+    widget.TaskList(**base(),highlight_method='block',margin_y=0,parse_text=tasklistStringHide,icon_size=17,txt_floating='',fontsize=20),
+
     widget.Spacer(**base()),
 
-    # Weather
-    widget.WidgetBox(**base(fg='color2'), 
-                    widgets=[widget.Wttr(**base(fg='color2'), location={location:''}, format="Feels like %f |  %h | 煮  %w | %m%M |   %p |  %P | " , update_interval=60)],
-                    text_closed="{}".format(location), text_open="{}  ".format(location)),
-    widget.Wttr(**base(fg='color2'), location={location:''}, format="%c%t" , update_interval=60),
+    # Check Updates
+    # icon(fg="color5", text=' '), # Icon: nf-fa-download
+    widget.CheckUpdates(**base(fg='color4'),
+    colour_have_updates=colors['color4'],colour_no_updates=colors['color4'],no_update_string='No updates', execute="echo -e 'ENTER_YOUR_PASSWORD' | sudo -S sudo powerpill --noconfirm -Su && paru --noconfirm -Su && notify-send 'System Updated'"),
 
     separator(),
 
@@ -92,35 +94,30 @@ primary_widgets = [
     widget.Memory(**base(fg='color3'), measure_mem="G",format="{MemUsed:.1f}{mm}/{MemTotal:.0f}{mm}"),
 
     separator(),
-
-    # Check Updates
-    # icon(fg="color5", text=' '), # Icon: nf-fa-download
-    widget.CheckUpdates(**base(fg='color5'),
-    colour_have_updates=colors['color5'],colour_no_updates=colors['color5'],no_update_string='No updates', execute="echo -e 'ENTER_USER_PASS_HERE' | sudo -S sudo powerpill --noconfirm -Su && paru --noconfirm -Su && notify-send 'System Updated'"),
+    
+    # Network Speed
+    widget.WidgetBox(**base(fg='color5'), widgets=[widget.Net(**base(fg='color5'), format='{up}↑')],text_closed=' ',text_open='  ',fontsize=15),
+    widget.Net(**base(fg='color5'), format='{down}↓'),
 
     separator(),
-                        
-    # Battery
-    widget.Battery(**base(fg='color6'),charge_char=' ',discharge_char=' ',full_char=' ',empty_char=' ', 
-                    format="{char} {percent:2.0%}" , update_interval=30),
 
-    # Backlight
-    # widget.Backlight(**base(bg='color5'),backlight_name='amdgpu_bl0',format=' {percent:2.0%} ﯦ '),
+    # Weather
+    widget.WidgetBox(**base(fg='color2'), 
+                    widgets=[widget.Wttr(**base(fg='color2'), location={location:''}, format="Feels like %f |  %h | 煮  %w | %m%M |   %p |  %P | " , update_interval=60)],
+                    text_closed="{}:".format(location), text_open="{}  ".format(location)),
+    widget.Wttr(**base(fg='color2'), location={location:''},format="%c%t" , update_interval=60),
+
+    separator(),
 
     # System Tray
-    widget.Systray(**base(fg='color7'), padding=5),
-
-    # Extras
-    widget.WidgetBox(**base(fg="color1"), widgets=[icon(fg="color1", text=' '),  # Icon: nf-fa-feed
-                              widget.Net(**base(fg='color1'), interface='wlo1', format='{down}↓{up}↑')],
-                              text_closed=' ﰪ ',text_open='  ',fontsize=18),
+    widget.Systray(**base(), padding=5),
     
     separator(),
 
     # Time Date
-    widget.WidgetBox(**base(fg="color2"), widgets=[widget.Clock(**base(fg='color2'), 
+    widget.WidgetBox(**base(fg='color6'), widgets=[widget.Clock(**base(fg='color6'), 
                                                    format='%A ')], text_closed='   ',text_open=' '),
-    widget.Clock(**base(fg='color2'), format='%d/%m/%y %I:%M %p ',
+    widget.Clock(**base(fg='color6'), format='%d/%m/%y %I:%M %p ',
     mouse_callbacks={
         # "Button1": lambda: os.system('dunstify "$(cal)"')
         }),

@@ -19,15 +19,24 @@ uptime=$(uptime -p | sed -e 's/up //g')
 rofi_command="rofi -theme $dir/$theme"
 
 # Options
-lock="  "
-reboot=" 勒 "
+yess="Yes"
+noo="No"
 shutdown=" ⏻ "
+reboot=" 勒 "
 suspend=" 鈴 "
 logout="  "
 
 # Confirmation
 confirm_exit() {
-	rofi -dmenu -i -no-fixed-num-lines -p "Are You Sure? : " -theme $dir/confirm.rasi
+	choice="$yess\n$noo"
+	# rofi -dmenu -i -no-fixed-num-lines 
+	choosed="$(echo -e "$choice" | rofi -theme $dir/confirm.rasi -dmenu -selected-row 1 -p "Are You Sure? : " )"
+	case $choosed in
+		$yess)
+			echo 1;;
+		$noo)
+			echo 0;;
+	esac
 }
 
 # Message
@@ -36,66 +45,42 @@ msg() {
 }
 
 # Variable passed to rofi
-options="$reboot\n$shutdown\n$suspend\n$logout"
+options="$shutdown\n$reboot\n$suspend\n$logout"
 
-chosen="$(echo -e "$options" | $rofi_command -dmenu -p "Uptime: $uptime ")"
+chosen="$(echo -e "$options" | $rofi_command -p "Uptime: $uptime" -dmenu -selected-row 0)"
 case $chosen in
     $shutdown)
 		ans=$(confirm_exit &)
-		if [[ $ans == "yes" || $ans == "YES" || $ans == "y" || $ans == "Y" ]]; then
+		if [[ $ans == 1 ]]; then
 			systemctl poweroff
-		elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
+		else
 			exit 0
-        else
-			msg
         fi
         ;;
     $reboot)
 		ans=$(confirm_exit &)
-		if [[ $ans == "yes" || $ans == "YES" || $ans == "y" || $ans == "Y" ]]; then
+		if [[ $ans == 1 ]]; then
 			systemctl reboot
-		elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
+		else
 			exit 0
-        else
-			msg
         fi
         ;;
-    $lock)
-		if [[ -f /usr/bin/i3lock ]]; then
-			i3lock
-		elif [[ -f /usr/bin/betterlockscreen ]]; then
-			betterlockscreen -l
-		fi
-        ;;
     $suspend)
-		ans="yes"
-		if [[ $ans == "yes" || $ans == "YES" || $ans == "y" || $ans == "Y" ]]; then
-			mpc -q pause
-			amixer set Master mute
+		ans=$(confirm_exit &)
+		if [[ $ans == 1 ]]; then
+			playerctl pause
+			# pamixer -m
 			systemctl suspend
-		elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
+		else
 			exit 0
-        else
-			msg
         fi
         ;;
     $logout)
 		ans=$(confirm_exit &)
-		if [[ $ans == "yes" || $ans == "YES" || $ans == "y" || $ans == "Y" ]]; then
-			# if [[ "$DESKTOP_SESSION" == "Openbox" ]]; then
-			# 	openbox --exit
-			# elif [[ "$DESKTOP_SESSION" == "bspwm" ]]; then
-			# 	bspc quit
-			# elif [[ "$DESKTOP_SESSION" == "i3" ]]; then
-			# 	i3-msg exit
-			# elif [[ "$DESKTOP_SESSION" == "qtile" ]]; then
-			# 	mod4
-			# fi
+		if [[ $ans == 1 ]]; then
 			killall xinit
-		elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
+		else
 			exit 0
-        else
-			msg
         fi
         ;;
 esac

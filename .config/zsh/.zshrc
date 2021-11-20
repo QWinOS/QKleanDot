@@ -50,8 +50,9 @@ export TERMINAL="alacritty"
 export BROWSER="firefox"
 export PAGER="most"
 export PATH=$PATH:~/.local/bin
-for folder in ~/.local/bin/* do
-  export PATH=$PATH:folder
+for folder in ~/.local/scripts/*;
+do
+  export PATH=$PATH:$folder;
 done
 
 #Exports

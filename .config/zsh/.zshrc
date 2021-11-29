@@ -65,11 +65,11 @@ export NVM_DIR="$HOME/.nvm"
 alias track='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 # Replace ls with exa
-alias ls='exa --color=always --group-directories-first --icons' # preferred
-alias la='exa -a --color=always --group-directories-first --icons'  # all f
-alias ll='exa -al --color=always --group-directories-first --icons'  # long
-alias lt='exa -aT --color=always --group-directories-first --icons' # tree
-alias l.="exa -a | egrep '^\.'"                                     # show
+alias ls='exa --color=always --group-directories-first --icons' # preferred listing
+alias la='exa -a --color=always --group-directories-first --icons'  # all files and dirs
+alias ll='exa -al --color=always --group-directories-first --icons'  # long format
+alias lt='exa -aT --color=always --group-directories-first --icons' # tree listing
+alias l.="exa -a | egrep '^\.'"                                     # show only dotfiles
 
 # Common use
 alias aup="pamac upgrade --aur"
@@ -81,7 +81,7 @@ alias wget='wget -c '
 alias rmpkg="sudo pacman -Rdd"
 alias psmem='ps auxf | sort -nr -k 4'
 alias psmem10='ps auxf | sort -nr -k 4 | head -10'
-alias upd='sudo reflector --latest 5 --age 2 --fastest 5 --protocol https --sort rate --save /etc/pacman.d/mirrorlist && cat /etc/pacman.d/mirrorlist && sudo pacman -Syu'
+alias upd='sudo reflector --latest 5 --age 2 --fastest 5 --protocol https --sort rate --save /etc/pacman.d/mirrorlist && cat /etc/pacman.d/mirrorlist && sudo pacman -Syu && fish_update_completions'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
@@ -93,15 +93,15 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias hw='hwinfo --short'                                   # Hardware Info
-alias big="expac -H M '%m\t%n' | sort -h | nl"              # Sort installe
-alias gitpkg='pacman -Q | grep -i "\-git" | wc -l'      # List amount of -g
-alias whereami='/usr/lib/geoclue-2.0/demos/where-am-i'      # get current l
+alias big="expac -H M '%m\t%n' | sort -h | nl"              # Sort installed packages according to size in MB (expac must be installed)
+alias gitpkg='pacman -Q | grep -i "\-git" | wc -l'			# List amount of -git packages
+alias whereami='/usr/lib/geoclue-2.0/demos/where-am-i'	    # get current location
  
 # Get fastest mirrors
-alias mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/
-alias mirrord="sudo reflector --latest 50 --number 20 --sort delay --save /
-alias mirrors="sudo reflector --latest 50 --number 20 --sort score --save /
-alias mirrora="sudo reflector --latest 50 --number 20 --sort age --save /et
+alias mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist" 
+alias mirrord="sudo reflector --latest 50 --number 20 --sort delay --save /etc/pacman.d/mirrorlist" 
+alias mirrors="sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist" 
+alias mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist"
 
 # Cleanup orphaned packages
 alias cleanup='sudo pacman -Rns (pacman -Qtdq)'
@@ -113,7 +113,7 @@ alias jctl="journalctl -p 3 -xb"
 alias lf='lf-ueberzug'
 
 # Take colorscheme from pywal
-(cat ~/.cache/wal/sequences &)
+cat ~/.cache/wal/sequences &
 
 # Starship prompt
 eval "$(starship init zsh)"

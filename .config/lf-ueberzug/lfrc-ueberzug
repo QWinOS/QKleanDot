@@ -4,7 +4,7 @@ set cleaner lf-ueberzug-cleaner
 # Put additional configuration which shall only apply to lf-ueberzug below
 
 # Basic Settings
-set hidden true
+# set hidden true
 set drawbox true
 set icons true
 set ignorecase true

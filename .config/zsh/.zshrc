@@ -1,7 +1,7 @@
 export ZDOTDIR=$HOME/.config/zsh
 
 # If tty1 startx
-[ "$(tty)" = "/dev/tty1" ] && ! pidof -s Xorg >/dev/null 2>&1 && exec startx "$XINITRC"
+[ "$(tty)" = "/dev/tty1" ] && ! pidof -s Xorg >/dev/null 2>&1 && exec startx "$XINITRC" >/dev/null 2>&1
 
 # Command history
 HISTSIZE=100000
@@ -32,7 +32,6 @@ lfcd () {
 #Plugins
 zsh_add_plugin "zsh-users/zsh-autosuggestions"
 zsh_add_plugin "z-shell/fast-syntax-highlighting"
-zsh_add_plugin "z-shell/history-search-multi-word"
 zsh_add_plugin "hlissner/zsh-autopair"
 
 # KeyBind

@@ -17,7 +17,7 @@ window {
 	border:							0px;
 	border-color:					@ac;
     border-radius:                  12px;
-	width:							30%;
+	width:							60%;
     location:                       center;
     x-offset:                       0;
     y-offset:                       0;
@@ -67,12 +67,12 @@ entry {
 listview {
     background-color:               @al;
     padding:                        10px;
-    columns:                        1;
-    lines:                          3;
+    columns:                        2;
+    lines:                          10;
     spacing:                        1%;
     cycle:                          true;
     dynamic:                        true;
-    layout:                         horizontal;
+    layout:                         vertical;
 }
 
 element {

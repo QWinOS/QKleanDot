@@ -19,7 +19,7 @@ feh --randomize --bg-fill -D 2 ~/Wallpapers/* &
 dunst &
 
 # start compositor
-picom --experimental-backends --backend glx --xrender-sync-fence &
+picom --backend glx --xrender-sync-fence &
 
 # start auto noise cancellation
 noisetorch -i &

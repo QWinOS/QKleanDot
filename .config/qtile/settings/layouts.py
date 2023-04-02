@@ -7,8 +7,8 @@ from settings.theme import colors
 
 layout_conf = {
     'border_focus': colors['focus'][0],
-    'border_width': 2,
-    'margin': 4
+    'border_width': 3,
+    'margin': 12
 }
 
 layouts = [layout.MonadTall(**layout_conf),
@@ -30,9 +30,16 @@ floating_layout = layout.Floating(
         Match(wm_class='confirmreset'),
         Match(wm_class='makebranch'),  # gitk
         Match(wm_class='maketag'),  # gitk
-        Match(wm_class='ssh-askpass'),
         Match(title='branchdialog'),  # gitk
-        Match(title='pinentry'),
+        Match(title="pinentry"),  # GPG key password entry
+        Match(wm_class="ssh-askpass"),  # ssh-askpass
+        Match(wm_class="pomotroid"),
+        Match(wm_class="cmatrixterm"),
+        Match(title="Farge"),
+        Match(wm_class="org.gnome.Nautilus"),
+        Match(wm_class="feh"),
+        Match(wm_class="eog"),
+        Match(wm_class="io.elementary.calculator"),
     ],
     border_focus=colors["color4"][0]
 )

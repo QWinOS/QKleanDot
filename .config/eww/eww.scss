@@ -1,0 +1,366 @@
+// general
+*{
+    all: unset;
+}
+
+window {
+    background-color: #2e3440;
+    color: #e5e9f0;
+    font-family: monospace;
+}
+
+button {
+    all: unset;
+    //background-color: #2e3440;
+    padding: 20px;
+}
+
+.main_box {
+    border-width: 3px;
+    border-style: solid;
+    border-color: #3b4252;
+    border-radius: 12px;
+}
+
+.vol { 
+    border-width: 3px;
+    border-style: solid;
+    border-color: #3b4252;
+    border-radius: 12px;
+}
+
+.bright { 
+    border-width: 3px;
+    border-style: solid;
+    border-color: #3b4252;
+    border-radius: 12px;
+}
+
+//player
+.player {
+  background-color: #232831;
+  border-radius: 12px; 
+  //border-top-width: 5px;
+  //border-style: solid;
+  //border-color: #66cccc;
+  margin: 40px 20px 40px 20px;
+  //width: 250px;
+}
+.musicart {
+  background-size: 250px;
+  background-repeat: no-repeat;
+  min-height: 250px;
+  min-width: 250px;
+  margin: 30px;
+  border-radius: 12px;
+  // padding: 10px;
+}
+
+.musictitle {
+  font-size: 24px;
+  font-weight: bold;
+  //margin-top: 80px;
+  margin-bottom: 10px;
+  margin-right: 30px;
+  color: #a3be8c;
+}
+
+.musicalbum {
+    font-size: 24px;
+    margin-bottom: 10px;
+    margin-right: 30px;
+    //color: #8fbcbb;
+}
+
+.musicartist {
+  font-size: 24px;
+  margin-bottom: 0px; 
+  margin-right: 30px;
+  //color: #88c0d0;
+}
+
+.musicbtn {
+  margin-right: 30px;
+}
+.musicbtn button {
+  font-size: 24px;
+  font-family: icons;
+  color: #434c5e;
+}
+
+.musicbtn button:hover {
+  color: #bf616a;
+}
+
+.music-info scale trough highlight {
+  all: unset;
+	background-color: #8fbcbb;;
+	color: #000000;
+	border-radius: 50px;
+}
+
+.music-info scale trough {
+	all: unset;
+	background-color: #434c5e;
+	border-radius: 50px;
+	min-height: 25px;
+  min-width: 250px;
+  margin-top: 10px;
+  margin-left: 0px;
+  margin-right: 30px;
+}
+
+//weather
+.weather {
+  background-color: #232831;
+  border-radius: 12px;
+  //border-top-width: 5px;
+  //border-style: solid;
+  //border-color: #66cccc;
+  margin: 40px 20px 40px 20px;
+}
+.weather-icon-side {
+  font-size: 82px;
+  font-family: icons;
+  margin: 30px 0px 5px 30px;
+}
+.weather-stat-side {
+  font-size: 28px;
+  //padding-top: 10px;
+  //padding-bottom: 5px;
+  font-weight: bold;
+  margin-right: 30px;
+  margin-left: 30px;
+  margin-bottom: 25px;
+  color: #88c0d0;
+}
+
+.temp-info {
+  margin: 30px;
+}
+
+.temperature-side {
+  //font-family: icons;
+  font-size: 52px;
+  font-weight: 900;
+  margin-right: 30px;
+  //color: #88c0d0;
+}
+
+.thermometer {
+  font-family: icons;
+  font-size: 52px;
+  font-weight: 900;
+  color: #d08770;
+}
+
+//system-info
+.sliders-side {
+  all: unset;
+  background-color: #232831;
+  border-radius: 12px; 
+  //border-top-width: 5px;
+  //border-style: solid;
+  //border-color: #66cccc;
+  margin: 40px 40px 40px 20px;
+  padding: 20px;
+  font-family: icons;
+  font-size: 32;
+}
+
+.circprog-ram-side {
+  color: #ebcb8b;
+  background-color: #434c5e;
+}
+
+.circprog-cpu-side {
+  color: #b48ead;
+  background-color: #434c5e;
+}
+
+.circprog-hdd-side {
+  color: #a3be8c;
+  background-color: #434c5e;
+}
+
+//profile
+.profile {
+  background-color: #232831;
+  border-radius: 12px; 
+  //border-top-width: 5px;
+  //border-style: solid;
+  //border-color: #66cccc;
+  margin: 40px 20px 40px 40px;
+  //width:  300px;
+}
+.pfp {
+  //background-image: url("/var/lib/AccountsService/icons/barbarossa.png");
+  //background-repeat: no-repeat;
+  //background-size: 300px;
+  //min-height: 300px;
+  //min-width: 300px;
+  margin: 30px 30px 30px 30px;
+  border-radius: 30px;
+}
+.pfptxt {
+  //margin-top: 0px;
+  color: #81a1c1;
+  font-size: 36px;
+  margin: 0px 30px 0px 30px;
+}
+.subpfptxt {
+  margin-bottom: 30px;
+  font-size: 24px;
+  //color: #5e81ac;
+}
+
+//launch
+.launch {
+  background-color: #232831;
+  border-radius: 12px;
+  //border-top-width: 5px;
+  //border-style: solid;
+  //border-color: #66cccc;
+  margin: 40px 20px 40px 20px;
+  font-family: icons;
+  font-size: 80px;
+  color: #4c566a;
+}
+
+.launch1 {
+  background-color: #232831; 
+  margin: 50px 30px 15px 30px; 
+}
+
+.internet:hover {
+  color: #5e81ac;
+}
+
+.mail:hover {
+  color: #81a1c1;
+}
+
+.music:hover {
+  color: #a3be8c;
+}
+
+.file:hover {
+  color: #bf616a;
+}
+
+.editor:hover {
+  color: #b48ead;
+}
+
+.launch2 {
+  background-color: #232831;
+  margin: 15px 30px 30px 30px;
+}
+
+.pomo:hover {
+  color: #d08770;
+}
+
+.notes:hover {
+  color: #88c0d0;
+}
+
+.rstudio:hover {
+  color: #8fbcbb;
+}
+
+.slack:hover {
+  color: #ebcb8b;
+}
+
+.terminal:hover {
+  color: #e5e9f0;
+}
+
+//vol
+.vol scale trough highlight {
+  all: unset;
+	background-color: #88c0d0;
+	color: #000000;
+	border-radius: 100px;
+}
+
+.vol scale trough {
+	all: unset;
+	background-color: #434c5e;
+	border-radius: 50px;
+	min-height: 35px;
+  	min-width: 250px;
+	margin-top: 0px;
+	margin-right: 20px;
+	margin-left: 20px;
+	margin-bottom: 20px;
+}
+
+.vol-icon {
+  font-family: icons;
+  font-size: 150px; 
+  margin-top: 20px; 
+  margin-bottom: -40px;
+  //margin-right: 9px;
+  color: #88c0d0;
+}
+
+//mic vol
+.micvol scale trough highlight {
+  all: unset;
+	background-color: #88c0d0;
+	color: #000000;
+	border-radius: 100px;
+}
+
+.micvol scale trough {
+	all: unset;
+	background-color: #434c5e;
+	border-radius: 50px;
+	min-height: 35px;
+  	min-width: 250px;
+	margin-top: 0px;
+	margin-right: 20px;
+	margin-left: 20px;
+	margin-bottom: 20px;
+}
+
+.micvol-icon {
+  font-family: icons;
+  font-size: 96px; 
+  margin-top: 40px; 
+  //margin-bottom: -70px;
+  //margin-right: 9px;
+  color: #88c0d0;
+}
+
+//bright
+.bright scale trough highlight {
+  all: unset;
+	background-color: #ebcb8b;
+	color: #000000;
+	border-radius: 100px;
+}
+
+.bright scale trough {
+	all: unset;
+	background-color: #434c5e;
+	border-radius: 50px;
+	min-height: 35px;
+  min-width: 250px;
+  margin: 30px;
+}
+
+.bright-icon {
+  font-family: icons;
+  font-size: 96px; 
+  margin-top: 40px; 
+  //margin-right: 9px;
+  color: #ebcb8b;
+}
+
+//bottom-border
+.border {
+  background-color: #3b4252;
+}

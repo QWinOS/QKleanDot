@@ -9,10 +9,12 @@ import subprocess
 
 
 def status_bar(widgets):
-    return bar.Bar(widgets, 24, opacity=1.00, margin=0)
+    return bar.Bar(widgets, 27, opacity=1.00, margin=0, border_width=[6,0,6,0], border_color="#292d3e")
 
 
-screens = [Screen(top=status_bar(primary_widgets))]
+screens = [Screen(wallpaper="~/.images/emoji.jpg",
+                  wallpaper_mode="fill",
+                  top=status_bar(primary_widgets))]
 
 xrandr = "xrandr | grep -w 'connected' | cut -d ' ' -f 2 | wc -l"
 

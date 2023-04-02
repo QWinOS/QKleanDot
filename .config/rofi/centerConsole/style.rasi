@@ -1,11 +1,11 @@
 configuration {
-	font:							"Iosevka Nerd Font 10";
     show-icons:                     true;
 	icon-theme: 					"Papirus";
     display-drun: 					"";
     drun-display-format:            "{name}";
     disable-history:                false;
 	sidebar-mode: 					false;
+	font:							"FantasqueSansMono Nerd Font 15";
 }
 
 @import "colors.rasi"
@@ -18,6 +18,7 @@ window {
 	border-color:					@ac;
     border-radius:                  12px;
 	width:							60%;
+    height: 50%;
     location:                       center;
     x-offset:                       0;
     y-offset:                       0;
@@ -50,7 +51,6 @@ prompt {
 	padding: 						0.30% 1% 0% -0.5%;
 	background-color: 				@al;
 	text-color: 					@fg;
-	font:							"FantasqueSansMono Nerd Font 12";
 }
 
 entry {

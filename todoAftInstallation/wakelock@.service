@@ -1,0 +1,16 @@
+[Unit]
+Description = Lock screen on resume from sleep/suspend
+Before=sleep.target
+Before=suspend.target
+
+[Service]
+User=%i
+Type=forking
+Environment=DISPLAY=:0
+#ExecStartPre=/usr/bin/dunstctl set-paused true
+ExecStart=/home/%i/.local/scripts/screen/lockinLogout/screenlock --suspend
+#ExecStartPost=/usr/bin/dunstctl set-paused false
+
+[Install]
+WantedBy=sleep.target
+WantedBy=suspend.target

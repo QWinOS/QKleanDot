@@ -1,13 +1,8 @@
 import os
-from libqtile import widget
+from libqtile import widget, qtile
 from settings.theme import colors
-
-# Get the icons at https://www.nerdfonts.com/cheat-sheet (you need a Nerd Font)
-
-# Enter Your Location Here
-location = 'Burnpur'
-
-# Enter User password in line 86 to update on click via top bar
+import subprocess
+from details import *
 
 def base(fg='text', bg='dark'):
     return {
@@ -44,7 +39,7 @@ def workspaces():
     return [
         # separator(),
         widget.GroupBox(
-            **base(bg='color4'),
+            **base(bg='darker'),
             fontsize=18,
             margin_y=3,
             margin_x=0,
@@ -54,7 +49,7 @@ def workspaces():
             active=colors['active'],
             inactive=colors['inactive'],
             rounded=True,
-            highlight_method='block',
+            highlight_method='text',
             urgent_alert_method='block',
             urgent_border=colors['urgent'],
             this_current_screen_border=colors['focus'],
@@ -66,61 +61,88 @@ def workspaces():
         ),
     ]
 
+# Define functions for bar
+def dunst():
+    return subprocess.check_output(["./.config/dunst/scripts/dunst.sh"]).decode("utf-8").strip()
 
+def toggle_dunst():
+    qtile.cmd_spawn("./.config/dunst/scripts/dunst.sh --toggle")
+
+def toggle_notif_center():
+    qtile.cmd_spawn("./.config/dunst/scripts/dunst.sh --notif-center")
+
+# Bar Config
 primary_widgets = [
-    # Current Layout
-    widget.CurrentLayoutIcon(**base(bg='color4'), scale=0.7),
-    widget.CurrentLayout(**base(bg='color4',fg='dark'), padding=5),
-
+    # Current Layout and Workspace
+    widget.TextBox(**base(fg='darker'),text=" ",fontsize=20,padding=0),
+    widget.CurrentLayoutIcon(**base(bg='darker'), scale=0.7),
+    widget.WidgetBox(**base(bg='darker',fg='light'),widgets=[widget.CurrentLayout(**base(bg='darker',fg='light'),padding=5)],
+                     text_closed='',text_open='',fontsize=20),
     *workspaces(),
+    widget.TextBox(**base(fg='darker'),text=" ",fontsize=20.5,padding=-1),
 
-    widget.TaskList(**base(),highlight_method='block',margin_y=0,parse_text=tasklistStringHide,icon_size=17,txt_floating='',fontsize=20),
+    # Open Apps List
+    widget.TaskList(**base(),highlight_method='block',margin_y=0,theme_mode='fallback',parse_text=tasklistStringHide,theme_path="/usr/share/icons/Dracula/scalable/apps/",icon_size=24,txt_floating='',txt_minimized='',fontsize=24),
 
     widget.Spacer(**base()),
 
-    # Check Updates
-    # icon(fg="color5", text=' '), # Icon: nf-fa-download
-    widget.CheckUpdates(**base(fg='color4'),
-    colour_have_updates=colors['color4'],colour_no_updates=colors['color4'],no_update_string='No updates', execute="echo -e 'ENTER_YOUR_PASSWORD' | sudo -S sudo powerpill --noconfirm -Su && paru --noconfirm -Su && notify-send 'System Updated'"),
-
-    separator(),
-
-    # CPU/RAM
-    widget.WidgetBox(**base(fg='color3'), 
-                    widgets=[widget.CPU(**base(fg='color3'),format="CPU {freq_current}GHz {load_percent}% "),
-                    widget.CPUGraph(**base(fg='color3')),
-                    widget.TextBox(**base(fg='color3'),text=" RAM ")],
-                    text_closed=' ',text_open=' ',fontsize=20),
-    widget.Memory(**base(fg='color3'), measure_mem="G",format="{MemUsed:.1f}{mm}/{MemTotal:.0f}{mm}"),
-
-    separator(),
-    
-    # Network Speed
-    widget.WidgetBox(**base(fg='color5'), widgets=[widget.Net(**base(fg='color5'), format='{up}↑')],text_closed=' ',text_open='  ',fontsize=15),
-    widget.Net(**base(fg='color5'), format='{down}↓'),
-
-    separator(),
-
-    # Weather
-    widget.WidgetBox(**base(fg='color2'), 
-                    widgets=[widget.Wttr(**base(fg='color2'), location={location:''}, format="Feels like %f |  %h | 煮  %w | %m%M |   %p |  %P | " , update_interval=60)],
-                    text_closed="{}:".format(location), text_open="{}  ".format(location)),
-    widget.Wttr(**base(fg='color2'), location={location:''},format="%c%t" , update_interval=60),
-
-    separator(),
-
-    # System Tray
-    widget.Systray(**base(), padding=5),
-    
-    separator(),
-
     # Time Date
-    widget.WidgetBox(**base(fg='color6'), widgets=[widget.Clock(**base(fg='color6'), 
-                                                   format='%A ')], text_closed='   ',text_open=' '),
-    widget.Clock(**base(fg='color6'), format='%d/%m/%y %I:%M %p ',
+    widget.WidgetBox(**base(fg='color6'), widgets=[widget.Clock(**base(fg='color6'),fontsize=18,format=' %b %d, %Y ')],fontsize=20, text_closed='',text_open=''),
+    widget.Clock(**base(fg='color6'),fontsize=18,format=' %a ',
     mouse_callbacks={
         # "Button1": lambda: os.system('dunstify "$(cal)"')
         }),
+    widget.Clock(**base(fg='color6'),format=" %I:%M %p ",fontsize=18),
+
+    # Media info
+    widget.WidgetBox(**base(fg='color6'),widgets=[widget.Mpris2(**base(fg='color6'),poll_interval=0.1,paused_text=' {track}',width=500,scroll=True)],
+                     text_closed='',text_open=' ',fontsize=20),
+
+    widget.Spacer(**base()),
+
+    # Network Speed
+    widget.TextBox(**base(fg='darker'),text="",fontsize=20,padding=0),
+    widget.WidgetBox(**base(bg='darker',fg='color1'), widgets=[widget.NetGraph(**base(bg='darker',fg='color1'),graph_color=colors['color1'],border_width=0),
+                                                               widget.Net(**base(bg='darker',fg='color1'),fontsize=18,format='{up}↑')],
+                     text_closed='',text_open='',fontsize=20),
+    widget.Net(**base(bg='darker',fg='color1'),fontsize=18,format='↓{down}'),
+    widget.TextBox(**base(fg='darker'),text=" ",fontsize=20.5,padding=-1),
+
+    # CPU/RAM
+    widget.TextBox(**base(fg='darker'),text="",fontsize=20,padding=0),
+    widget.WidgetBox(**base(bg='darker',fg='color3'), 
+                    widgets=[widget.CPU(**base(bg='darker',fg='color3'),fontsize=18,format=" {freq_current}GHz {load_percent}% "),
+                             widget.ThermalZone(**base(bg='darker'),fgcolor_normal=colors['color3']),
+                             widget.CPUGraph(**base(bg='darker',fg='color3'),fontsize=18,graph_color=colors['color3'],border_width=0),
+                             #widget.NvidiaSensors(**base(bg='darker',fg='color3')),
+                             ],
+                    text_closed='',text_open='',fontsize=25),
+    widget.Memory(**base(bg='darker',fg='color3'),fontsize=18,measure_mem="G",format=" {MemUsed:.1f}{mm}/{MemTotal:.0f}{mm}"),
+    widget.TextBox(**base(fg='darker'),text=" ",fontsize=20.5,padding=-1),
+
+    # Miscellaneous
+    widget.TextBox(**base(fg='darker'),text="",fontsize=20,padding=0),
+    # Weather
+    widget.WidgetBox(**base(bg='darker',fg='color2'), 
+                    widgets=[widget.Wttr(**base(bg='darker',fg='color2'), location={location:''},fontsize=18,width=550,scroll=True,update_interval=60,format="Feels like %f |  %h | 煮%w | %m%M |   %p |  %P | %c ")],
+                    text_closed="",fontsize=18,text_open=" "),
+    widget.Wttr(**base(bg='darker',fg='color2'), location={location:''},fontsize=18,format=" %t" , update_interval=60),
+    # Check Updates
+    # icon(fg="color5", text=' '), # Icon: nf-fa-download
+    widget.CheckUpdates(**base(bg='darker',fg='color4'),colour_have_updates=colors['color4'],colour_no_updates=colors['color4'],
+                        no_update_string='  0', display_format='  {updates}',fontsize=18,
+                        execute=f"echo -e '{password}' | sudo -S sudo powerpill --noconfirm -Su && paru --noconfirm -Su && notify-send -a Updater -i /usr/share/icons/Dracula/scalable/apps/nx-software-updater.svg 'System Updated'",
+                        mouse_callbacks={"Button3":lambda:os.system("notify-send -a Updater -i /usr/share/icons/Dracula/scalable/apps/nx-software-updater.svg \"$(pacman -Qu | cut -d \' \' -f 1)\"")}),
+    widget.TextBox(**base(fg='darker'),text=" ",fontsize=20.5,padding=-1),
+
+    # System Tray and Notification Control
+    widget.TextBox(**base(fg='darker'),text="",fontsize=20.5,padding=-1),
+    # Systray
+    widget.Systray(**base(bg='darker'), padding=5),
+    # DND setting
+    widget.GenPollText(**base(bg='darker',fg='light'),fontsize=20,func=dunst,update_interval=1,padding=6,
+                       mouse_callbacks={"Button1": toggle_dunst,"Button3": toggle_notif_center}),
+    widget.TextBox(**base(fg='darker'),text=" ",fontsize=20.5,padding=-1),
 ]
 
 
@@ -140,7 +162,7 @@ primary_widgets = [
 
 widget_defaults = {
     'font': 'UbuntuMono Nerd Font Bold',
-    'fontsize': 14,
+    'fontsize': 15,
     'padding': 1,
 }
 extension_defaults = widget_defaults.copy()

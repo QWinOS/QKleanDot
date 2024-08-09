@@ -1,4 +1,4 @@
-set previewer lf-ueberzug-previewer
+# set previewer lf-ueberzug-previewer
 set cleaner lf-ueberzug-cleaner
 
 # Put additional configuration which shall only apply to lf-ueberzug below
@@ -15,6 +15,19 @@ cmd open ${{
         text/*|application/json) $EDITOR "$f";;
         *) xdg-open "$f" ;;
     esac
+}}
+
+cmd on-cd &{{
+    # display git repository status in your prompt
+    source /usr/share/git/completion/git-prompt.sh
+    GIT_PS1_SHOWDIRTYSTATE=auto
+    GIT_PS1_SHOWSTASHSTATE=auto
+    GIT_PS1_SHOWUNTRACKEDFILES=auto
+    GIT_PS1_SHOWUPSTREAM=auto
+    GIT_PS1_COMPRESSSPARSESTATE=auto
+    git="$(__git_ps1 " [GIT BRANCH:> %s]")" || true
+    fmt="\033[32;1m%u@%h\033[0m:\033[34;1m%w\033[0m\033[33;1m$git\033[0m"
+    lf -remote "send $id set promptfmt \"$fmt\""
 }}
 
 cmd mkdir ${{
@@ -57,6 +70,10 @@ cmd fzf_jump ${{
     cmd="cd"
   fi
   lf -remote "send $id $cmd \"$res\""
+}}
+
+cmd z-jump ${{
+    lf -remote "send $id cd \"$(/path/to/z.lua -e "$@" | sed 's/\\/\\\\/g;s/"/\\"/g')\""
 }}
 
 cmd broot_jump ${{
@@ -156,6 +173,11 @@ map tr restore_trash
 
 # Broot Mapping
 map f broot_jump
+
+# Z Lua Mapping
+map Z push :z-jump<space>-I<space>
+map zb push :z-jump<space>-b<space>
+map zz push :z-jump<space>
 
 # Dragon Mapping
 map dr dragon

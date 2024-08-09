@@ -118,6 +118,7 @@ cat ~/.cache/wal/sequences &
 
 # Starship prompt
 eval "$(starship init zsh)"
+eval "$(lua ~/.config/zlua/z.lua --init --enhanced zsh)"
 
 # Neofetch
 neofetch

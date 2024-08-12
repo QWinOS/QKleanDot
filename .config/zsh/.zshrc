@@ -122,6 +122,7 @@ eval "$(lua ~/.config/zlua/z.lua --init --enhanced zsh)"
 
 # Neofetch
 neofetch
+~/.local/scripts/miscellaneous/helloUser.sh
 
 # LF icons
 export LF_ICONS="\

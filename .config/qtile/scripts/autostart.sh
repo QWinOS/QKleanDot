@@ -64,3 +64,8 @@ cbatticon -n -c "notify-send -a Battery -i /usr/share/icons/Dracula/symbolic/dev
 
 # auto mount usb to linux
 udiskie --automount --notify --tray &
+
+# enable audio in linux
+/usr/bin/pipewire &
+/usr/bin/pipewire-pulse &
+/usr/bin/wireplumber &

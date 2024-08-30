@@ -281,3 +281,4 @@ export NVM_DIR="$HOME/.nvm"
 
 neofetch
 eval "$(starship init bash)"
+PATH=~/.console-ninja/.bin:$PATH

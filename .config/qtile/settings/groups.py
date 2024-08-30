@@ -1,7 +1,7 @@
 # Qtile workspaces
 from libqtile.dgroups import simple_key_binder
 from libqtile.config import Key, Group, ScratchPad, DropDown
-from libqtile.command import lazy
+from libqtile.lazy import lazy
 from settings.keys import mod, keys
 
 

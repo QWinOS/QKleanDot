@@ -1,6 +1,6 @@
 # Qtile keybindings
 from libqtile.config import Key
-from libqtile.command import lazy
+from libqtile.lazy import lazy
 
 def show_keys():
     key_help = ""
@@ -74,7 +74,8 @@ keys = [
 
     # ------------ App Configs ------------
     Key([mod], "p", lazy.spawn("./.config/rofi/powermenu/powermenu.sh"),desc="Launch powermenu"),
-    Key([mod], "b", lazy.spawn("firefox"),desc="Launch browser"),
+    #Key([mod], "b", lazy.spawn("firefox"),desc="Launch browser"),
+    Key([mod], "b", lazy.spawn("brave"),desc="Launch browser"),
     Key([mod], "t", lazy.spawn("code"),desc="Launch text editor"),
     Key([mod], "Return", lazy.spawn("alacritty"),desc="Launch Alacritty Terminal"),
 
